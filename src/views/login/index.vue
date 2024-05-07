@@ -127,9 +127,6 @@ import { ThemeEnum } from "@/enums/ThemeEnum";
 const userStore = useUserStore();
 const settingsStore = useSettingsStore();
 
-// Internationalization
-const { t } = useI18n();
-
 // Reactive states
 const isDark = ref(settingsStore.theme === ThemeEnum.DARK);
 const icpVisible = ref(true);

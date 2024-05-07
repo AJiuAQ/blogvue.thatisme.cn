@@ -10,6 +10,16 @@ export interface LoginData {
    * 密码
    */
   password: string;
+
+  /**
+   * 验证码缓存key
+   */
+  captchaKey?: string;
+
+  /**
+   * 验证码
+   */
+  captchaCode?: string;
 }
 
 /**

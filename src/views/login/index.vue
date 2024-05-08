@@ -127,6 +127,9 @@ import { ThemeEnum } from "@/enums/ThemeEnum";
 const userStore = useUserStore();
 const settingsStore = useSettingsStore();
 
+// Internationalization
+const { t } = useI18n();
+console.log('---t',t)
 // Reactive states
 const isDark = ref(settingsStore.theme === ThemeEnum.DARK);
 const icpVisible = ref(true);
@@ -231,11 +234,7 @@ const toggleTheme = () => {
  */
 
 watchEffect(() => {
-  if (height.value < 600) {
-    icpVisible.value = false;
-  } else {
-    icpVisible.value = true;
-  }
+  icpVisible.value = height.value >= 600;
 });
 
 /**

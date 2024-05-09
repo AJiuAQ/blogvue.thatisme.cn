@@ -1,6 +1,6 @@
-import request from '@/utils/request.ts'
+import request from '@/utils/request'
 import { AxiosPromise } from 'axios'
-import { UserInfo } from '@/api/user/types.ts'
+import { UserInfo } from '@/api/user/model'
 
 
 /**

@@ -1,8 +1,8 @@
-import { loginApi } from '@/api/auth'
-import { LoginData } from '@/api/auth/type.ts'
+import AuthAPI from "@/api/auth";
+import { LoginData } from '@/api/auth/model'
 import { store } from '@/store'
 import { resetRouter } from '@/router'
-import { UserInfo } from '@/api/user/types.ts'
+import { UserInfo } from '@/api/user/model'
 import { getUserInfoApi } from '@/api/user'
 
 export const useUserStore = defineStore('user', () => {
@@ -19,9 +19,9 @@ export const useUserStore = defineStore('user', () => {
    */
   function login(loginData: LoginData) {
     return new Promise<void>((resolve, reject) => {
-      loginApi(loginData)
-        .then(response => {
-          const { tokenType, accessToken } = response.data
+      AuthAPI.login(loginData)
+        .then(data => {
+          const { tokenType, accessToken } = data
           localStorage.setItem('accessToken', tokenType + ' ' + accessToken)
           resolve()
         })

@@ -3,11 +3,11 @@
     <!-- 顶部 -->
     <div class="absolute-lt flex-x-end p-3 w-full">
       <el-switch
-        v-model="isDark"
-        inline-prompt
-        :active-icon="Moon"
-        :inactive-icon="Sunny"
-        @change="toggleTheme"
+          v-model="isDark"
+          inline-prompt
+          :active-icon="Moon"
+          :inactive-icon="Sunny"
+          @change="toggleTheme"
       />
       <lang-select class="ml-2 cursor-pointer" />
     </div>
@@ -19,45 +19,45 @@
       </div>
 
       <el-form
-        ref="loginFormRef"
-        :model="loginData"
-        :rules="loginRules"
-        class="login-form"
+          ref="loginFormRef"
+          :model="loginData"
+          :rules="loginRules"
+          class="login-form"
       >
         <!-- 用户名 -->
         <el-form-item prop="username">
           <div class="flex-y-center w-full">
             <svg-icon icon-class="user" class="mx-2" />
             <el-input
-              ref="username"
-              v-model="loginData.username"
-              :placeholder="$t('login.username')"
-              name="username"
-              size="large"
-              class="h-[48px]"
+                ref="username"
+                v-model="loginData.username"
+                :placeholder="$t('login.username')"
+                name="username"
+                size="large"
+                class="h-[48px]"
             />
           </div>
         </el-form-item>
 
         <!-- 密码 -->
         <el-tooltip
-          :visible="isCapslock"
-          :content="$t('login.capsLock')"
-          placement="right"
+            :visible="isCapslock"
+            :content="$t('login.capsLock')"
+            placement="right"
         >
           <el-form-item prop="password">
             <div class="flex-y-center w-full">
               <svg-icon icon-class="lock" class="mx-2" />
               <el-input
-                v-model="loginData.password"
-                :placeholder="$t('login.password')"
-                type="password"
-                name="password"
-                @keyup="checkCapslock"
-                @keyup.enter="handleLogin"
-                size="large"
-                class="h-[48px] pr-2"
-                show-password
+                  v-model="loginData.password"
+                  :placeholder="$t('login.password')"
+                  type="password"
+                  name="password"
+                  @keyup="checkCapslock"
+                  @keyup.enter="handleLogin"
+                  size="large"
+                  class="h-[48px] pr-2"
+                  show-password
               />
             </div>
           </el-form-item>
@@ -68,30 +68,30 @@
           <div class="flex-y-center w-full">
             <svg-icon icon-class="captcha" class="mx-2" />
             <el-input
-              v-model="loginData.captchaCode"
-              auto-complete="off"
-              size="large"
-              class="flex-1"
-              :placeholder="$t('login.captchaCode')"
-              @keyup.enter="handleLogin"
+                v-model="loginData.captchaCode"
+                auto-complete="off"
+                size="large"
+                class="flex-1"
+                :placeholder="$t('login.captchaCode')"
+                @keyup.enter="handleLogin"
             />
 
             <el-image
-              @click="getCaptcha"
-              :src="captchaBase64"
-              class="rounded-tr-md rounded-br-md cursor-pointer h-[48px]"
+                @click="getCaptcha"
+                :src="captchaBase64"
+                class="rounded-tr-md rounded-br-md cursor-pointer h-[48px]"
             />
           </div>
         </el-form-item>
 
         <!-- 登录按钮 -->
         <el-button
-          :loading="loading"
-          type="primary"
-          size="large"
-          class="w-full"
-          @click.prevent="handleLogin"
-          >{{ $t("login.login") }}
+            :loading="loading"
+            type="primary"
+            size="large"
+            class="w-full"
+            @click.prevent="handleLogin"
+        >{{ $t("login.login") }}
         </el-button>
 
         <!-- 账号密码提示 -->
@@ -115,8 +115,8 @@
 
 <script setup lang="ts">
 import { useSettingsStore, useUserStore } from "@/store";
-import { getCaptchaApi } from "@/api/auth";
-import { LoginData } from "@/api/auth/types";
+import AuthAPI from "@/api/auth";
+import { LoginData } from "@/api/auth/model";
 import { Sunny, Moon } from "@element-plus/icons-vue";
 import { LocationQuery, LocationQueryValue, useRoute } from "vue-router";
 import router from "@/router";
@@ -129,7 +129,7 @@ const settingsStore = useSettingsStore();
 
 // Internationalization
 const { t } = useI18n();
-console.log('---t',t)
+
 // Reactive states
 const isDark = ref(settingsStore.theme === ThemeEnum.DARK);
 const icpVisible = ref(true);
@@ -175,71 +175,64 @@ const loginRules = computed(() => {
   };
 });
 
-/**
- * 获取验证码
- */
+/** 获取验证码 */
 function getCaptcha() {
-  getCaptchaApi().then(({ data }) => {
+  AuthAPI.getCaptcha().then((data) => {
     loginData.value.captchaKey = data.captchaKey;
     captchaBase64.value = data.captchaBase64;
   });
 }
 
-/**
- * 登录
- */
+/** 登录 */
 const route = useRoute();
 function handleLogin() {
   loginFormRef.value.validate((valid: boolean) => {
     if (valid) {
       loading.value = true;
       userStore
-        .login(loginData.value)
-        .then(() => {
-          const query: LocationQuery = route.query;
-          const redirect = (query.redirect as LocationQueryValue) ?? "/";
-          const otherQueryParams = Object.keys(query).reduce(
-            (acc: any, cur: string) => {
-              if (cur !== "redirect") {
-                acc[cur] = query[cur];
-              }
-              return acc;
-            },
-            {}
-          );
+          .login(loginData.value)
+          .then(() => {
+            const query: LocationQuery = route.query;
+            const redirect = (query.redirect as LocationQueryValue) ?? "/";
+            const otherQueryParams = Object.keys(query).reduce(
+                (acc: any, cur: string) => {
+                  if (cur !== "redirect") {
+                    acc[cur] = query[cur];
+                  }
+                  return acc;
+                },
+                {}
+            );
 
-          router.push({ path: redirect, query: otherQueryParams });
-        })
-        .catch(() => {
-          getCaptcha();
-        })
-        .finally(() => {
-          loading.value = false;
-        });
+            router.push({ path: redirect, query: otherQueryParams });
+          })
+          .catch(() => {
+            getCaptcha();
+          })
+          .finally(() => {
+            loading.value = false;
+          });
     }
   });
 }
 
-/**
- * 主题切换
- */
-
+/** 主题切换 */
 const toggleTheme = () => {
   const newTheme =
-    settingsStore.theme === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
+      settingsStore.theme === ThemeEnum.DARK ? ThemeEnum.LIGHT : ThemeEnum.DARK;
   settingsStore.changeTheme(newTheme);
 };
-/**
- * 根据屏幕宽度切换设备模式
- */
 
+/** 根据屏幕宽度切换设备模式 */
 watchEffect(() => {
-  icpVisible.value = height.value >= 600;
+  if (height.value < 600) {
+    icpVisible.value = false;
+  } else {
+    icpVisible.value = true;
+  }
 });
 
-/**
- * 检查输入大小写
- */
+/** 检查输入大小写 */
 function checkCapslock(event: KeyboardEvent) {
   // 防止浏览器密码自动填充时报错
   if (event instanceof KeyboardEvent) {
@@ -292,3 +285,4 @@ html.dark .login-container {
   }
 }
 </style>
+@/api/auth/model

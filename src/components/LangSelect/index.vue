@@ -32,7 +32,7 @@ defineProps({
 
 const langOptions = [
   { label: "中文", value: LanguageEnum.ZH_CN },
-  // { label: "English", value: LanguageEnum.EN },
+  { label: "English", value: LanguageEnum.EN },
 ];
 
 const appStore = useAppStore();

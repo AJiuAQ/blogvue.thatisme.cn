@@ -1,6 +1,6 @@
 <template>
-  <div class="dashboard-container">
-    <!-- github角标 -->
+  <div class="dashboard-container">啊啊<!--
+    &lt;!&ndash; github角标 &ndash;&gt;
     <github-corner class="github-corner" />
 
     <el-card shadow="never">
@@ -40,7 +40,7 @@
       </el-row>
     </el-card>
 
-    <!-- 数据卡片 -->
+    &lt;!&ndash; 数据卡片 &ndash;&gt;
     <el-row :gutter="10" class="mt-3">
       <el-col
         :xs="24"
@@ -52,7 +52,7 @@
         <el-card shadow="never">
           <template #header>
             <div class="flex items-center justify-between">
-              <span class="text-[var(--el-text-color-secondary)]">{{
+              <span class="text-[var(&#45;&#45;el-text-color-secondary)]">{{
                 item.title
               }}</span>
               <el-tag :type="item.tagType">
@@ -69,7 +69,7 @@
           </div>
 
           <div
-            class="flex items-center justify-between mt-5 text-sm text-[var(--el-text-color-secondary)]"
+            class="flex items-center justify-between mt-5 text-sm text-[var(&#45;&#45;el-text-color-secondary)]"
           >
             <span> {{ item.dataDesc }} </span>
             <span> {{ Math.round(item.count * 15) }} </span>
@@ -78,7 +78,7 @@
       </el-col>
     </el-row>
 
-    <!-- Echarts 图表 -->
+    &lt;!&ndash; Echarts 图表 &ndash;&gt;
     <el-row :gutter="10" class="mt-3">
       <el-col
         :xs="24"
@@ -93,11 +93,11 @@
           :id="item"
           height="400px"
           width="100%"
-          class="bg-[var(--el-bg-color-overlay)]"
+          class="bg-[var(&#45;&#45;el-bg-color-overlay)]"
         />
       </el-col>
     </el-row>
-  </div>
+  --></div>
 </template>
 
 <script setup lang="ts">

@@ -7,9 +7,9 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AppLink: typeof import('./../components/AppLink/index.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
-    ElCol: typeof import('element-plus/es')['ElCol']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
@@ -18,18 +18,20 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
-    ElRow: typeof import('element-plus/es')['ElRow']
-    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
-    ElStatistic: typeof import('element-plus/es')['ElStatistic']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
+    Hamburger: typeof import('./../components/Hamburger/index.vue')['default']
     HelloWorld: typeof import('./../components/HelloWorld.vue')['default']
     LangSelect: typeof import('./../components/LangSelect/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sidebar: typeof import('./../layout/components/Sidebar/index.vue')['default']
+    SidebarMenu: typeof import('./../layout/components/Sidebar/components/SidebarMenu.vue')['default']
+    SidebarMenuItem: typeof import('./../layout/components/Sidebar/components/SidebarMenuItem.vue')['default']
+    SidebarMenuItemTitle: typeof import('./../layout/components/Sidebar/components/SidebarMenuItemTitle.vue')['default']
+    SidebarMixTopMenu: typeof import('./../layout/components/Sidebar/components/SidebarMixTopMenu.vue')['default']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
   }
 }

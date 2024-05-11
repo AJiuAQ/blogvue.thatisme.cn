@@ -17,7 +17,7 @@
         <h2>{{ defaultSettings.title }}</h2>
         <el-tag class="ml-2 absolute-rt">{{ defaultSettings.version }}</el-tag>
       </div>
-
+      <svg-icon icon-class="hua2"/>
       <el-form
           ref="loginFormRef"
           :model="loginData"

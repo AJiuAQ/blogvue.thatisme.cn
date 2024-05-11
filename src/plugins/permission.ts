@@ -1,6 +1,6 @@
 import router from "@/router"
 import { useUserStore, usePermissionStore } from "@/store"
-import NProgress from "@/utils/nprogress.ts"
+import NProgress from "@/utils/nprogress"
 import { RouteRecordRaw } from "vue-router"
 
 export function setupPermission() {

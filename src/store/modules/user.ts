@@ -3,7 +3,7 @@ import { LoginData } from '@/api/auth/model'
 import { store } from '@/store'
 import { resetRouter } from '@/router'
 import { UserInfo } from '@/api/user/model'
-import { getUserInfoApi } from '@/api/user'
+import UserAPI from "@/api/user"
 
 export const useUserStore = defineStore('user', () => {
   const user = ref<UserInfo>({
@@ -34,8 +34,8 @@ export const useUserStore = defineStore('user', () => {
   // 获取信息(用户昵称、头像、角色集合、权限集合)
   function getUserInfo() {
     return new Promise<UserInfo>((resolve, reject) => {
-      getUserInfoApi()
-        .then(({ data }) => {
+      UserAPI.getInfo()
+        .then((data) => {
           if (!data) {
             reject("Verification failed, please Login again.");
             return;
